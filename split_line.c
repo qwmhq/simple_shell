@@ -39,14 +39,16 @@ char **split_line(char *line)
 	ptr = line;
 	while (*ptr)
 	{
-		if (*ptr != ' ' &&
+		if (*ptr != ' ' && *ptr != '\n' && *ptr != '\0' &&
 				(*(ptr + 1) == ' ' || *(ptr + 1) == '\n' || *(ptr + 1) == '\0'))
 			arg_count++;
 		ptr++;
 	}
+	if (arg_count < 1)
+		return (NULL);
 	arr = malloc((arg_count + 1) * sizeof(char *));
 	if (arr == NULL)
-		exit(98);
+		exit(EXIT_FAILURE);
 	arr[arg_count] = NULL;
 
 	ptr = line;

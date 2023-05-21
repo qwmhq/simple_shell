@@ -30,7 +30,7 @@ int main(int argc, char **argv)
 			break;
 		}
 		args = split_line(line);
-		if (*args == NULL)
+		if (args == NULL || *args == NULL)
 		{
 			free(line);
 			continue;

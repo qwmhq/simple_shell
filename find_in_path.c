@@ -31,7 +31,7 @@ char *find_in_path(const char *filename)
 		}
 		ptr -= dir_len;
 
-		abs_path = malloc(dir_len + strlen(filename) + 1);
+		abs_path = malloc(dir_len + strlen(filename) + 2);
 		strncpy(abs_path, ptr, dir_len);
 		if (abs_path[dir_len - 1] != '/')
 		{

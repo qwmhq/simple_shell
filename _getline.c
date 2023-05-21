@@ -38,7 +38,7 @@ int _getline(char **lineptr, size_t *n, FILE *stream)
 		{
 			temp_buf = realloc(*lineptr, (buf_size += 100));
 			if (temp_buf == NULL)
-				exit(98);
+				exit(EXIT_FAILURE);
 			*lineptr = temp_buf;
 			*n = buf_size;
 		}

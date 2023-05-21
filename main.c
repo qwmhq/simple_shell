@@ -26,7 +26,6 @@ int main(int argc, char **argv)
 		command_count++;
 		if (m == -1)
 		{
-			printf("\n");
 			free(line);
 			break;
 		}

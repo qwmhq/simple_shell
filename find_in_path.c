@@ -12,6 +12,8 @@ char *find_in_path(const char *filename)
 {
 	char *path = _getenv("PATH"), *ptr = path;
 
+	if (path == NULL)
+		return (NULL);
 	while (*ptr)
 	{
 		char *abs_path;
@@ -23,7 +25,6 @@ char *find_in_path(const char *filename)
 			ptr++;
 			continue;
 		}
-
 		while (*ptr != ':' && *ptr != '\0')
 		{
 			dir_len++;
@@ -41,9 +42,7 @@ char *find_in_path(const char *filename)
 		else
 			strcpy(abs_path + dir_len, filename);
 		if (stat(abs_path, &st) == 0)
-		{
 			return (abs_path);
-		}
 		ptr += dir_len;
 		free(abs_path);
 	}

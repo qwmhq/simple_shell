@@ -1,6 +1,7 @@
 #ifndef SHELL_H
 #define SHELL_H
 
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -20,6 +21,12 @@ void free_str_arr(char **arr);
 char *find_in_path(const char *filename);
 int fork_exec_wait(char *pathname, char **argv, char **envp,
 		int *status, char *err_str);
+
+/* builtins */
+void exit_builtin(char **args, int *status,
+		char *process_name, int command_count);
+void env_builtin(char **args, int *status,
+		char *process_name, int command_count);
 
 
 #endif

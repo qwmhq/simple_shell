@@ -6,12 +6,12 @@
  * @argc: argument count
  * @argv: null-terminated array of argument values
  *
- * Return: 0 upon suceess
+ * Return: exit code of the last command executed
  */
 int main(int argc, char **argv)
 {
 	unsigned int command_count = 0;
-	int status;
+	int status = 0;
 
 	(void)(argc);
 	while (1)
@@ -35,11 +35,20 @@ int main(int argc, char **argv)
 		{
 			continue;
 		}
+		if (strcmp(args[0], "exit") == 0)
+		{
+			exit_builtin(args, &status, argv[0], command_count);
+			continue;
+		} else if (strcmp(args[0], "env") == 0)
+		{
+			env_builtin(args, &status, argv[0], command_count);
+			continue;
+		}
 		abs_path = strchr(args[0], '/') ? strdup(args[0]) : find_in_path(args[0]);
 		if (abs_path == NULL)
 		{
 			fprintf(stderr, "%s: %u: %s: not found\n", argv[0], command_count, args[0]);
-			status = 127;
+			status = 127 << 8;
 		} else
 		{
 			fork_exec_wait(abs_path, args, environ, &status, argv[0]);
@@ -47,5 +56,5 @@ int main(int argc, char **argv)
 		}
 		free_str_arr(args);
 	}
-	return (status);
+	return (WEXITSTATUS(status));
 }

@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 	(void)(argc);
 	while (1)
 	{
-		char *line = NULL, *abs_path, **args;
+		char *line = NULL, *abs_path = NULL, **args = NULL;
 		size_t n = 0;
 		ssize_t m;
 
@@ -30,22 +30,22 @@ int main(int argc, char **argv)
 			break;
 		}
 		args = split_line(line);
+		free(line);
 		if (args == NULL || *args == NULL)
 		{
-			free(line);
 			continue;
 		}
 		abs_path = strchr(args[0], '/') ? strdup(args[0]) : find_in_path(args[0]);
 		if (abs_path == NULL)
 		{
 			fprintf(stderr, "%s: %u: %s: not found\n", argv[0], command_count, args[0]);
+			status = 127;
 		} else
 		{
 			fork_exec_wait(abs_path, args, environ, &status, argv[0]);
 			free(abs_path);
 		}
-		free(line);
 		free_str_arr(args);
 	}
-	return (0);
+	return (status);
 }

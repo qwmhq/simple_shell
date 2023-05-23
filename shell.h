@@ -27,6 +27,10 @@ void exit_builtin(char **args, int *status,
 		char *process_name, int command_count);
 void env_builtin(char **args, int *status,
 		char *process_name, int command_count);
+void setenv_builtin(char **args, int *status,
+		char *process_name, int command_count);
+void unsetenv_builtin(char **args, int *status,
+		char *process_name, int command_count);
 
 /**
  * struct builtin_func - struct for builtin functions

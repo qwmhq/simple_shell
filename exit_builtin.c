@@ -24,6 +24,7 @@ void exit_builtin(char **args, int *status,
 				fprintf(stderr, "%s: %d: %s: Illegal number: %s\n",
 						process_name, command_count, args[0], args[1]);
 				*status = 2 << 8;
+				free_str_arr(args);
 				return;
 			}
 			c++;

@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * exit_shell - exit builtin
+ * exit_builtin - exit builtin
  *
  * @args: array of arguments
  * @status: exit status

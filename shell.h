@@ -28,5 +28,18 @@ void exit_builtin(char **args, int *status,
 void env_builtin(char **args, int *status,
 		char *process_name, int command_count);
 
+/**
+ * struct builtin_func - struct for builtin functions
+ *
+ * @command: the command for the builtin
+ * @func: pointer to function for command
+ */
+typedef struct builtin_func
+{
+	const char *command;
+	void (*func)(char **, int *, char *, int);
+} builtin_t;
+
+void (*find_in_builtins(const char *command))(char **, int *, char *, int);
 
 #endif

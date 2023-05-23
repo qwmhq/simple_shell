@@ -16,6 +16,7 @@ int main(int argc, char **argv)
 	(void)(argc);
 	while (1)
 	{
+		void (*builtin_func)(char **, int *, char *, int);
 		char *line = NULL, *abs_path = NULL, **args = NULL;
 		size_t n = 0;
 		ssize_t m;
@@ -35,13 +36,10 @@ int main(int argc, char **argv)
 		{
 			continue;
 		}
-		if (strcmp(args[0], "exit") == 0)
+		builtin_func = find_in_builtins(args[0]);
+		if (builtin_func != NULL)
 		{
-			exit_builtin(args, &status, argv[0], command_count);
-			continue;
-		} else if (strcmp(args[0], "env") == 0)
-		{
-			env_builtin(args, &status, argv[0], command_count);
+			builtin_func(args, &status, argv[0], command_count);
 			continue;
 		}
 		abs_path = strchr(args[0], '/') ? strdup(args[0]) : find_in_path(args[0]);
